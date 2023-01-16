@@ -151,7 +151,10 @@ class Utils
             $code = trim($code, " \r\n\t");
             if (strlen($code) > 0 && $code[0] != '{')
                 $code = "return {$code};";
-            $fun = @create_function($args, $code);
+            //$fun = @create_function($args, $code);
+            $fun = function($args){
+                eval("\$code;");
+            };
             // @codeCoverageIgnoreStart
             if (!$fun)
                 throw new \InvalidArgumentException(self::ERROR_CANNOT_PARSE_LAMBDA);
